@@ -1,20 +1,51 @@
-# AI-Powered Visitor Journey Segmentation — Built with Claude Code, Dash & Plotly
+# AI-Powered Visitor Journey Segmentation
 
 ## Problem Statement
 
-Online applications usually capture a huge amount of visitor journey data, e.g. clickstream, events, etc., that was under used due to the volume and complexity, especially data pipelines for data parsing, insight mining, and Dashboards for pattern exploration and storytelling. Using Claude Code, this project is intended to showcase the capability of AI in automating both pipeline and dashboard building.
+Online applications capture vast amounts of visitor journey 
+data, clickstream, events, page views, that often goes 
+underused. The volume and complexity make it expensive to build 
+the data pipelines for parsing, insight mining, and the interactive dashboards 
+for pattern exploration and storytelling.
 
-The source data (event data in July 2017) is from a Public dataset - [Google Merch Store](https://developers.google.com/analytics/bigquery/web-ecommerce-demo-dataset) . Based on the prompts 
+This project demonstrates how AI (Claude Code) can dramatically 
+accelerate both, turning raw event data into an interactive 
+analytics dashboard in a single working day, a task that would 
+typically take one week without AI tooling.
 
-A small exploratory project that turns a Google Merchandise Store (GMS) hit-level
-export into an interactive **Dash/Plotly** dashboard visualizing user navigation
-journeys. A four-stage Python pipeline classifies page titles with Claude,
-stitches hits into per-visit paths, run-length compresses consecutive duplicates,
-and renders the result as Public Dashboard that can be accessed via Plotly Cloud through URL https://767c6beb-95a8-46a6-892f-c76ce480b289.plotly.app/.
+## High Level Design
 
-The LLM is used **once**, in Stage 1, to classify ~600 unique `pageTitle` values
-into a small set of `pageSummary` buckets (e.g. `product detail page`, `Home`).
-Every downstream stage is pure `pandas` — idempotent, file-based, offline-safe.
+### Source Data
+
+The source data is from a Public dataset - [Google Merch Store](https://developers.google.com/analytics/bigquery/web-ecommerce-demo-dataset), page view events in July 2017. See details in Data/raw_user_journeys.csv.
+
+### Pipelines
+
+Three pipelines have been created by Claude Code based on prompts. They transformed the event data through four stages:
+
+#### page title classifier
+
+Tools/page_mapping.py utilized Anthropic Opus 4.6 to categorize page titles into Product Detail Page (PDP), Home, etc. The mapping is saved in Data/page_mapping.csv to support the following pipelines and transformations.
+
+#### convert hits to visit based user paths
+
+Tools/user_journeys.py transformed individual "hits" (page views) into visit based user path so that each visit would only have one record with all the page view events tracked in one string. Data/base_user_journeys_full_visit_path.csv and Data/base_user_journeys.csv are the outputs of the pipeline. If you can't find them in Data folder, they may have been removed from upload process due to their large file sizes. But they can be re-generated in your local environment.
+
+#### user path compressor
+
+Tools/user_journeys_path_compressed.py provided compressed user path by merging the same and consecutive page view events to expedite the following process. The compressed user paths are stored in Data/base_user_journeys_compressed.csv.
+
+#### capture sentiment insights based on user paths
+
+Tools/user_journeys_path_compressed.py also captured the sentiment insights based on the compressed user paths and feedback from Anthropic Opus 4.6 API calls. The results, frustration indicator and reasons, were stored in Data/frustration_cache.csv and Data/Rpt_Funnel_DeepDive.csv.
+
+### Dashboard
+
+App.py [Marketing & Growth: Funnel Segmentation Dashboard - Google Merch Store](https://767c6beb-95a8-46a6-892f-c76ce480b289.plotly.app/) was built entirely by Claude Code using Python, Plotly and Dash libraries and codes. Its source data is Data/Rpt_Funnel_DeepDive.csv. Users can select segmentation criteria and get insights on funnel progress and visitor cohorts.
+
+### Prompts
+
+Some key prompts used in this project can be found in Prompts/tool_prompts.md, Data/plan.md and Data/session_prompts.md.
 
 ## Folder Structure
 

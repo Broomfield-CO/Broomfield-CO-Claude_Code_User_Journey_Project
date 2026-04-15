@@ -1,10 +1,10 @@
-# AI-Powered Visitor Journey Segmentation - Pipelines and Plotly Dashboard
+# AI-Powered Visitor Journey Segmentation and Insights
 
 ## Problem Statement
 
-Online applications capture enormous volumes of visitor journey data — clickstream, events, page views — that usually go underused. Building the data pipelines that parse raw events into meaningful signals, and the interactive dashboards that turn those signals into stories, is traditionally slow and expensive work.
+Online applications capture enormous volumes of visitor journey data — clickstream, events, page views — that usually go underused. Building the data pipelines that parse raw events into meaningful signals, and the interactive dashboards that turn those signals into actions, was slow and tedious before AI.
 
-This project demonstrates how Claude Code can collapse that work: raw Google Merchandise Store hit-level events are turned into a live, interactive funnel-segmentation dashboard in days rather than weeks, with most of the glue code, prompts, and classification logic authored inside a single Claude Code working session.
+This project demonstrates how Claude Code can collapse that work: raw Google Merchandise Store hit-level events are turned into a live, interactive funnel-segmentation dashboard in a day rather than a week, with most of the codes, prompts, and classification logic authored inside a single Claude Code working session. AI was also helpful to capture frictions & frustration based on user path data. The insights will definitely help product teams to improve customer experiences. 
 
 ## High Level Design
 
@@ -44,7 +44,7 @@ Key prompts used to build the project live in:
 - `Prompts/tool_prompts.md` — rebuild guide with system prompts and iteration notes
 - `Data/session_prompts.md` — v1 session transcript
 - `Data/session_prompts_v2.csv` — v2 session transcript
-- `Data/plan.md` — early design notes (**stale** — trust the code)
+- `Data/plan.md` — early design notes (**stale**)
 
 ### Verification
 

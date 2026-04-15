@@ -1,0 +1,7 @@
+Data/base_user_journeys_full_visit_path.csv 
+.venv/ 
+__pycache__/ 
+.claude/ 
+.env 
+Tools/__pycache__/
+Data/base_user_journeys_compressed.csv

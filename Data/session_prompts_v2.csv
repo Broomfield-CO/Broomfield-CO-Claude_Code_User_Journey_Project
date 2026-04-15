@@ -1,0 +1,55 @@
+seq,prompt
+1,"build a Dash and Plotly app showing simple line chart and pie chart on a webpage. the webpage needs to run in Dash local server"
+2,"does app.py include call back? and what is call back?"
+3,"what does /plan mean?"
+4,"how to enter plan mode?"
+5,"are you in plan mode now?"
+6,"how about now? plan mode?"
+7,"new tasks # build a mapping table in a new file page_mapping (string) under folder Data following the insruction below ## the mapping table will be saved in file page_mapping.csv under Data folder ## the page_mapping.csv will have 2 columns, one is pageTitle with values from the pageTitle column in raw_user_journeys.csv file, the other is pageSummary which need to be populated based on the following business rules ### all values in pageTitle column ending with '| Google Merchandise Store' and starting with product names such as Drinkware or product categories such as Apparel, Electronics, separated by pipes(|), need to be marked as 'product detail page' in column pageSummary . ### all values in pageTitle column that don't contain any pipes (|) and are actual products, such as Google Vintage Henley Grey/Black, need to be marked as 'product detail page' in column pageSummary as well ### for rest of the pageTitle, copy them over to column pageSummary # the mapping table mentioned above needs to be built by python codes in file page_mapping.py under Data folder # the source data for page_mapping.csv is raw_user_journeys.csv show your plan before execution"
+8,"provide your whole entire plan for me to review
+
+in addition, make sure to aggregate the rows in page_mapping.csv so there won't be duplicates"
+9,"how did you know a string is a product vs some system path such as home"
+10,"how did you get the 645 unique values in pageTitle column?"
+11,"where did you get the instruction on using the stdlib csv module"
+12,"the question is how did you come out a solution to
+1. starting with extracting unique values of page titles
+2. realized some page titles are system path although they are not ending with '| Google Merchandise Store'?"
+13,"so you didn't include raw data in the context window?
+
+and, have you pass the unique pageTitles to llm during the process?"
+14,"I see, so, you determine when you use llm during plan and design whereas you don't involve llm during runtime if not requsted?
+
+I guess I was asking why you didn;t call llm to go over each pageTitle in the python code? instead, you hard coded all the navigation url in python after you analyzed the patterns in the 600+ unique page titles during plan and design."
+15,"so, you perfer I put design details in the instruction to guide you write the codes?"
+16,"what is GMS_SUFFIX?"
+17,"changes:
+
+1. for pageTitles in non-english, follow the same rules to classify their pageSummary
+2. in page_Mapping python, explict on extract unique pageTitle values first then ask permission to send them to llm to classify, once approved, send them to llm and get their pageSummary
+3. rewrite page_mapping python code and csv data file
+4. record prompts of this session in file session_prompts_v2.csv under folder Data"
+18,"/compact"
+19,"why the python codes are running so slow?"
+20,"why not thinking?"
+21,"ok. close thinking, and make sure to send pageTitle all at once. see the error below, it seems like the batching wasn't working"
+22,"NameError: name 'BATCH_SIZE' is not defined"
+23,"so there is no way where you can run some python codes in the current session and fix errors when they happen?"
+24,"ok, remove the proceed prompt and provide step by step guide on how to provide you the API key safely before execution., the goal is for you to handle the execution in the current session and fix errors without intervention"
+25,"the key file is ready"
+26,"applying the following changes
+
+1. adjustments on pageSummary, in addition to navigation and product detail page, add ""shope by brand"", if exists in the pageTitle or ""shop by category"". for ""shop by category"", looking for the categorical keywords in the pageTitle such as ""Apparel"" or ""Accessories"". so the final pageSummary would be shop by category, product detail page or just shop by category depending on the actual pageTitle
+2. for multilingle pageTitle, make sure their pageSummary are all in english, if their summary needs to be as-is based on the previous rules, translate them in English as the pageSummary"
+27,"/compact"
+28,"turn on plan mode
+
+applying the following changes
+
+1. adjustments on pageSummary, in addition to navigation and product detail page, add ""shope by brand"", if exists in the pageTitle or ""shop by category"". for ""shop by category"", looking for the categorical keywords in the pageTitle such as ""Apparel"" or ""Accessories"". so the final pageSummary would be shop by category, product detail page or just shop by category depending on the actual pageTitle
+2. for multilingle pageTitle, make sure their pageSummary are all in english, if their summary needs to be as-is based on the previous rules, translate them in English as the pageSummary
+
+then, go over the user_journeys.py and add new codes in it to
+1. add the codes to get pageSummary based on pageTitle to the user_journeys.py
+2. add pageSummary in the data and use it to replace pageTitle to form coolumn user_path,  replace the delimiter pipe (|) to ~ for column user_path in output file base_user_journeys_full_visit_path.csv. you must not send anything other than unique pageTitle to the llm
+3. dedupe and send the reults to base_user_journeys.csv with last_step_indicator = 'Y'"

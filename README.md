@@ -1,4 +1,4 @@
-# AI-Powered Visitor Journey Segmentation
+# AI-Powered Visitor Journey Segmentation - Pipelines and Plotly Dashboard
 
 ## Problem Statement
 

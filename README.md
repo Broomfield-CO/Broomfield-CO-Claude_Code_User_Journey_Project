@@ -1,4 +1,10 @@
-# UserJourneyDashPlotly
+# AI-Powered Visitor Journey Segmentation — Built with Claude Code, Dash & Plotly
+
+## Problem Statement
+
+Online applications usually capture a huge amount of visitor journey data, e.g. clickstream, events, etc., that was under used due to the volume and complexity, especially data pipelines for data parsing, insight mining, and Dashboards for pattern exploration and storytelling. Using Claude Code, this project is intended to showcase the capability of AI in automating both pipeline and dashboard building.
+
+The source data (event data in July 2017) is from a Public dataset - [Google Merch Store](https://developers.google.com/analytics/bigquery/web-ecommerce-demo-dataset) . Based on the prompts 
 
 A small exploratory project that turns a Google Merchandise Store (GMS) hit-level
 export into an interactive **Dash/Plotly** dashboard visualizing user navigation
